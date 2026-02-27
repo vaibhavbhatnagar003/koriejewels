@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Koriejewels | You are beautiful</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05050a;
+      --bg-soft: #101018;
+      --card-bg: #151520;
+      --accent: #f0b5ff;
+      --accent-soft: rgba(240, 181, 255, 0.15);
+      --accent-strong: #ff9bd6;
+      --text: #f8f5ff;
+      --muted: #aaa5c4;
+      --border-soft: rgba(255, 255, 255, 0.04);
+      --danger: #ff6b6b;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --radius-card: 20px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background: radial-gradient(circle at top, #191428 0, #05050a 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      padding: 24px 18px 40px;
+    }
+
+    .card-shell {
+      background: linear-gradient(140deg, rgba(240, 181, 255, 0.15), transparent);
+      padding: 1px;
+      border-radius: 30px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #2a1735 0, #090913 40%, #05050a 100%);
+      border-radius: 30px;
+      padding: 22px 18px 24px;
+      border: 1px solid var(--border-soft);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(10, 8, 16, 0.95);
+      border: 1px solid rgba(240, 181, 255, 0.35);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent-strong), var(--accent));
+      box-shadow: 0 0 14px rgba(240, 181, 255, 0.95);
+    }
+
+    .brand-name {
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: var(--accent-strong);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .subcopy {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .subcopy strong {
+      color: var(--text);
+    }
+
+    /* Button stack */
+    .button-group {
+      margin: 20px 0 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      background: rgba(240, 181, 255, 0.16);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+      transition: transform 0.16s ease-out, box-shadow 0.16s ease-out,
+        background 0.16s ease-out, border-color 0.16s ease-out;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn span {
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, #ff9bd6, #f0b5ff);
+      color: #150815;
+      border-color: rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+    }
+
+    .btn-outline {
+      background: rgba(12, 10, 18, 0.9);
+      border-color: rgba(240, 181, 255, 0.45);
+    }
+
+    .btn-muted {
+      background: rgba(12, 10, 18, 0.9);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: var(--muted);
+    }
+
+    .btn:active,
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.85);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Sections */
+    section {
+      margin-top: 20px;
+      padding: 16px 14px 18px;
+      border-radius: var(--radius-card);
+      background: radial-gradient(circle at top left, #27152f 0, #101018 45%, #05050a 100%);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section-pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(240, 181, 255, 0.13);
+      color: var(--muted);
+      border: 1px solid rgba(240, 181, 255, 0.3);
+    }
+
+    .section-description {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    /* Product grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .product-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #11101a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .product-image-wrapper {
+      position: relative;
+      padding-top: 120%;
+      overflow: hidden;
+    }
+
+    .product-image-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease-out, filter 0.3s ease-out;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+
+    .product-label {
+      position: absolute;
+      inset: auto 8px 8px 8px;
+      padding: 6px 8px;
+      border-radius: 14px;
+      background: linear-gradient(120deg, rgba(0, 0, 0, 0.7), rgba(21, 11, 28, 0.9));
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .product-name {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .badge {
+      background: rgba(240, 181, 255, 0.2);
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-strong);
+    }
+
+    /* New arrivals coming soon */
+    .coming-soon-card {
+      border-radius: 20px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #2b1533 0, #090912 55%, #050509 100%);
+      border: 1px solid rgba(240, 181, 255, 0.22);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.85);
+      text-align: center;
+      padding: 18px 14px 14px;
+    }
+
+    .coming-soon-image-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #3c2046 0, #140b22 60%, #050509 100%);
+      padding: 16px 10px 10px;
+      margin-bottom: 10px;
+    }
+
+    .coming-soon-image-wrapper img {
+      width: 72%;
+      max-width: 210px;
+      margin: 0 auto;
+      display: block;
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.95));
+    }
+
+    .coming-title {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .coming-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Track order section */
+    .track-steps {
+      list-style: none;
+      font-size: 12px;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .track-steps li::before {
+      content: "• ";
+      color: var(--accent-strong);
+    }
+
+    .helper-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    @media (min-width: 420px) {
+      .card {
+        padding: 24px 20px 26px;
+      }
+      .button-group {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card-shell">
+      <div class="card">
+        <header>
+          <div class="brand-badge">
+            <span class="brand-dot"></span>
+            <span>Imitation Jewellery · Premium</span>
+          </div>
+          <div class="brand-name">Koriejewels</div>
+          <div class="tagline">You are beautiful</div>
+          <p class="subcopy">
+            Elegant, feminine & warm – <strong>affordable luxury jewellery</strong> for everyday queens.
+            Tap below to shop & order on WhatsApp.
+          </p>
+        </header>
+
+        <!-- Primary actions -->
+        <div class="button-group">
+          <a href="#best-sellers" class="btn btn-primary">
+            <span>🛍</span> Shop Best Sellers
+          </a>
+          <a href="#new-arrivals" class="btn btn-outline">
+            <span>✨</span> New Arrivals
+          </a>
+          <a href="#limited-offers" class="btn btn-outline">
+            <span>🔥</span> Limited Offers
+          </a>
+
+          <!-- ORDER ON WHATSAPP -->
+          <!-- Replace 911234567890 with your WhatsApp Business number (with country code, no + or spaces) -->
+          <a
+            href="https://wa.me/911234567890?text=Hi%20Koriejewels%20%F0%9F%92%8E%0AI%20want%20to%20order%20this%20jewellery.%0APlease%20share%20details."
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>💬</span> Order on WhatsApp
+          </a>
+
+          <!-- TRACK ORDER BUTTON (also via WhatsApp) -->
+          <a
+            href="https://wa.me/911234567890?text=Hi%20Koriejewels%20%F0%9F%92%8E%0AI%20want%20to%20track%20my%20order.%0AOrder%20ID%3A%20%0AName%3A%20%0APhone%3A%20"
+            class="btn btn-muted"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>📦</span> Track Your Order
+          </a>
+        </div>
+
+        <!-- BEST SELLERS -->
+        <section id="best-sellers">
+          <div class="section-header">
+            <h2 class="section-title">Best Sellers</h2>
+            <span class="section-pill">Curated for you</span>
+          </div>
+          <p class="section-description">
+            Most-loved pieces from Koriejewels. Tap a style you like, take a screenshot, then message us on WhatsApp to order.
+          </p>
+
+          <div class="grid">
+            <!-- NEW: Combo of silver oxidized jhumkas (Best Seller) -->
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <img
+                  src="https://i.ibb.co/r2Xmx63w/Chat-GPT-Image-Feb-24-2026-07-10-45-PM.png"
+                  alt="Combo of silver oxidized jhumkas - Koriejewels"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-label">
+                <div class="product-name">Combo · Silver Oxidized Jhumkas</div>
+                <div class="product-meta">
+                  <span class="badge">Best Seller</span>
+                  <span>Everyday elegance</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Existing product images (premium grid) -->
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <img
+                  src="https://i.ibb.co/9mqn2p3Q/Gemini-Generated-Image-is12djis12djis12.png"
+                  alt="Koriejewels premium imitation jewellery 1"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-label">
+                <div class="product-name">Pearl Glow Chandbalis</div>
+                <div class="product-meta">
+                  <span class="badge">Hot</span>
+                  <span>Festive fav</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <img
+                  src="https://i.ibb.co/LdF6ts9Z/Gemini-Generated-Image-ea4282ea4282ea42.png"
+                  alt="Koriejewels premium imitation jewellery 2"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-label">
+                <div class="product-name">Rose Gold Statement Set</div>
+                <div class="product-meta">
+                  <span class="badge">Glow</span>
+                  <span>Date night</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <img
+                  src="https://i.ibb.co/j9Mkj2Hy/Gemini-Generated-Image-t74rl5t74rl5t74r.png"
+                  alt="Koriejewels premium imitation jewellery 3"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-label">
+                <div class="product-name">Kundan Dream Drops</div>
+                <div class="product-meta">
+                  <span class="badge">Classic</span>
+                  <span>Ethnic fit</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <img
+                  src="https://i.ibb.co/mrmDZwXy/Gemini-Generated-Image-isgsozisgsozisgs.png"
+                  alt="Koriejewels premium imitation jewellery 4"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-label">
+                <div class="product-name">Royal Layered Necklace</div>
+                <div class="product-meta">
+                  <span class="badge">Elegant</span>
+                  <span>Wedding pick</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card">
+              <div class="product-image-wrapper">
+                <img
+                  src="https://i.ibb.co/spMfsykQ/Whats-App-Image-2026-02-20-at-18-07-02-1.jpg"
+                  alt="Koriejewels premium imitation jewellery 5"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-label">
+                <div class="product-name">Everyday Minimal Hoops</div>
+                <div class="product-meta">
+                  <span class="badge">Daily</span>
+                  <span>Workwear</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NEW ARRIVALS -->
+        <section id="new-arrivals">
+          <div class="section-header">
+            <h2 class="section-title">New Arrivals</h2>
+            <span class="section-pill">Dropping soon</span>
+          </div>
+          <p class="section-description">
+            Our newest designs are getting ready just for you. Stay tuned & follow us on Instagram for launch dates.
+          </p>
+
+          <div class="coming-soon-card">
+            <div class="coming-soon-image-wrapper">
+              <!-- Cute placeholder PNG – replace src with your own cute illustration later if you want -->
+              <img
+                src="https://via.placeholder.com/600x400.png?text=Coming+Soon+%E2%9D%A4"
+                alt="Cute coming soon illustration for Koriejewels"
+                loading="lazy"
+              />
+            </div>
+            <div class="coming-title">Coming Soon…</div>
+            <div class="coming-sub">
+              New collections to make you feel <strong>soft, elegant & beautiful</strong> every single day.
+            </div>
+          </div>
+        </section>
+
+        <!-- LIMITED OFFERS -->
+        <section id="limited-offers">
+          <div class="section-header">
+            <h2 class="section-title">Limited Offers</h2>
+            <span class="section-pill">Fast-moving</span>
+          </div>
+          <p class="section-description">
+            Limited pieces & time-bound price drops on selected designs. Screenshot your favourite product, tap
+            <strong>Order on WhatsApp</strong> and ask for today's offers.
+          </p>
+        </section>
+
+        <!-- TRACK YOUR ORDER (SYSTEM) -->
+        <section id="track-order">
+          <div class="section-header">
+            <h2 class="section-title">Track Your Order</h2>
+            <span class="section-pill">WhatsApp support</span>
+          </div>
+          <p class="section-description">
+            For now, we track all orders directly on WhatsApp so you always chat with a real human from Koriejewels.
+          </p>
+
+          <ul class="track-steps">
+            <li>Tap the <strong>📦 Track Your Order</strong> button above.</li>
+            <li>Share your <strong>Order ID</strong>, full name & phone number.</li>
+            <li>We reply with your <strong>current status & expected delivery date</strong>.</li>
+          </ul>
+
+          <p class="helper-note">
+            Tip: save your order ID from our confirmation message so tracking is super quick. 💕
+          </p>
+        </section>
+
+        <footer>
+          Koriejewels · You are beautiful
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
